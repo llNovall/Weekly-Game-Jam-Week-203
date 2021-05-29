@@ -22,17 +22,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "SideMovement",
+                    "name": "Jump",
                     "type": "Button",
-                    "id": "562574f3-c452-4792-882a-63b2610d1738",
+                    "id": "fbfda28c-b605-4ecb-87c3-79bd622b5b27",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
                 },
                 {
-                    "name": "Jump",
+                    "name": "Movement",
                     "type": "Button",
-                    "id": "fbfda28c-b605-4ecb-87c3-79bd622b5b27",
+                    "id": "9f474f9d-342d-42eb-8a8d-c5fe69ef3c7f",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -62,39 +62,6 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "82c111ec-ca18-4d06-b1f6-b4dab884db13",
-                    "path": "1DAxis",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SideMovement",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "b4e535d4-d2ab-4dc8-bf44-d1110931bd87",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "SideMovement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "5b2af2c1-4802-4f23-9ed6-ac5883d05f21",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard & Mouse",
-                    "action": "SideMovement",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "",
                     "id": "da2a184f-9442-4f8f-af9d-e5bb46bb899b",
                     "path": "<Keyboard>/space",
@@ -104,6 +71,61 @@
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "2D Vector",
+                    "id": "948fe20c-93a4-41e2-be6f-03ec4a7f8fec",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "1e536a7a-6bd6-48ed-b1f5-fc1ba63a7e56",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "b848a832-8497-4985-b2f4-b0ce4a12f9c2",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "c90a3684-e227-450e-97b9-80dbb14f070e",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "dd333f24-8dfa-40db-888f-22a78638c0f7",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
