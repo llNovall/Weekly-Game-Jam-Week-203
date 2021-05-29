@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class Dash : Ability
@@ -12,6 +11,9 @@ public class Dash : Ability
 
     [SerializeField]
     private float _dashSpeed;
+
+    [SerializeField]
+    private float _minDistanceFromWall;
 
     [SerializeField, Tooltip("This is only for debugging")]
     private Vector2 _dashDestination;
@@ -27,7 +29,6 @@ public class Dash : Ability
     {
         base.PrePerform();
         PlayerTracker.PlayerMovementController.EnableMovement(false);
-        PlayerTracker.PlayerMovementController.EnableGravity(false);
     }
 
     protected override void PostPerform()
@@ -35,26 +36,22 @@ public class Dash : Ability
         base.PostPerform();
 
         PlayerTracker.PlayerMovementController.EnableMovement(true);
-        PlayerTracker.PlayerMovementController.EnableGravity(true);
     }
     private Vector2 GetDestination()
     {
         Vector2 mousePosition = GetMousePosition();
 
-        Vector2 direction = new Vector2(mousePosition.x - gameObject.transform.position.x < 0 ? -1 : 1, gameObject.transform.position.y).normalized * Vector2.right;
+        Vector2 direction = (mousePosition - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).normalized;
 
-        RaycastHit2D[] hits = Physics2D.RaycastAll(gameObject.transform.position, direction, _maxDashDistance);
+        int layerMask = LayerMask.GetMask("Walls");
+        RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, direction, _maxDashDistance, layerMask);
 
-        for (int i = 0; i < hits.Length; i++)
+        if (hit)
         {
-            if (hits[i].collider.gameObject != gameObject)
-            {
-                return hits[i].point;
-            }
+            return hit.point + ((Vector2)gameObject.transform.position - hit.point).normalized * _minDistanceFromWall;
         }
 
-        Vector2 destination = new Vector2(gameObject.transform.position.x + direction.x * _maxDashDistance, gameObject.transform.position.y);
-        return destination;
+        return new Vector2(gameObject.transform.position.x, gameObject.transform.position.y) + direction * _maxDashDistance;
     }
     private IEnumerator DashToPoint()
     {
@@ -74,11 +71,6 @@ public class Dash : Ability
         PostPerform();
     }
     private Vector2 GetMousePosition() => Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-
-    //private void LateUpdate()
-    //{
-    //    Debug.LogError("Mouse Position : " + GetMousePosition());
-    //}
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
