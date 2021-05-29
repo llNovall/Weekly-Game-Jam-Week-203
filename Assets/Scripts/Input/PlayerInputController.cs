@@ -10,8 +10,7 @@ public class PlayerInputController : MonoBehaviour
     [SerializeField]
     private PlayerInput _playerInput;
 
-    private event UnityAction<float> OnPlayerMovementInputUpdated;
-    private event UnityAction OnJump;
+    private event UnityAction<Vector2> OnPlayerMovementInputUpdated;
     private event UnityAction OnAbility1;
     private event UnityAction OnAbility2;
 
@@ -30,24 +29,15 @@ public class PlayerInputController : MonoBehaviour
 
         InputAction ability2 = _playerInput.actions["Ability2"];
         ability2.performed += Ability2_performed;
-
-        InputAction jump = _playerInput.actions["Jump"];
-        jump.performed += Jump_performed;
-
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
-        float inputVector = _playerInput.actions["SideMovement"].ReadValue<float>();
-        if (inputVector != 0)
+        Vector2 inputVector = _playerInput.actions["Movement"].ReadValue<Vector2>();
+        if (inputVector != Vector2.zero)
             OnPlayerMovementInputUpdated?.Invoke(inputVector);
-    }
 
-    private void Jump_performed(InputAction.CallbackContext obj)
-    {
-        OnJump?.Invoke();
     }
-
     private void Ability2_performed(InputAction.CallbackContext obj)
     {
         Debug.LogError($"{GetType().FullName} : Ability2 Activated");
@@ -62,21 +52,13 @@ public class PlayerInputController : MonoBehaviour
 
     #region
 
-    public void SubscribeToOnPlayerMovementInputUpdated(UnityAction<float> callback) => HelperUtility.SubscribeTo(ref OnPlayerMovementInputUpdated, ref callback);
-    public void UnsubscribeFromOnPlayerMovementInputUpdated(UnityAction<float> callback) => HelperUtility.UnsubscribeFrom(ref OnPlayerMovementInputUpdated, ref callback);
-
-    public void SubscribeToOnJump(UnityAction callback) => HelperUtility.SubscribeTo(ref OnJump, ref callback);
-    public void UnsubscribeFromOnJump(UnityAction callback) => HelperUtility.UnsubscribeFrom(ref OnJump, ref callback);
-
+    public void SubscribeToOnPlayerMovementInputUpdated(UnityAction<Vector2> callback) => HelperUtility.SubscribeTo(ref OnPlayerMovementInputUpdated, ref callback);
+    public void UnsubscribeFromOnPlayerMovementInputUpdated(UnityAction<Vector2> callback) => HelperUtility.UnsubscribeFrom(ref OnPlayerMovementInputUpdated, ref callback);
     public void SubscribeToOnAbility1(UnityAction callback) => HelperUtility.SubscribeTo(ref OnAbility1, ref callback);
     public void UnsubscribeFromOnAbility1(UnityAction callback) => HelperUtility.UnsubscribeFrom(ref OnAbility1, ref callback);
 
     public void SubscribeToOnAbility2(UnityAction callback) => HelperUtility.SubscribeTo(ref OnAbility2, ref callback);
     public void UnsubscribeFromOnAbility2(UnityAction callback) => HelperUtility.UnsubscribeFrom(ref OnAbility2, ref callback);
-
-
-
-
 
     #endregion
 }
