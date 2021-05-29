@@ -23,6 +23,7 @@ public class UIAbilities : MonoBehaviour
         if (ability)
         {
             GameObject objAbility = Instantiate(_uiAbilityTemplate, _parentUIAbilitiesContent);
+            objAbility.SetActive(true);
             UIAbility controller = objAbility.GetComponent<UIAbility>();
 
             if (controller)
