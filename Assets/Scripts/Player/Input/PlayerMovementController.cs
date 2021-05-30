@@ -21,7 +21,7 @@ public class PlayerMovementController : MonoBehaviour
     [SerializeField]
     private Rigidbody _rBody;
 
-    private Vector2 _movement;
+    private Vector3 _movement;
 
     [SerializeField]
     private float _offset;
@@ -47,15 +47,15 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (_isAbleToMove)
         {
-            Vector2 movement = movementInput * _movementSpeed * Time.deltaTime;
+            Vector3 movement = new Vector3(movementInput.x, 0, movementInput.y) * _movementSpeed * Time.deltaTime;
             _movement = movement;
 
             int layerMask = LayerMask.GetMask("Walls");
-            bool isHit = Physics2D.Raycast(gameObject.transform.position, movementInput, _minDistanceFromWall, layerMask);
+            bool isHit = Physics.Raycast(gameObject.transform.position, movement.normalized, _minDistanceFromWall, layerMask);
 
             if (isHit)
                 return;
-            gameObject.transform.position += new Vector3(movement.x, 0,movement.y);
+            gameObject.transform.position += movement;
         }
     }
     private void FaceMouse()
