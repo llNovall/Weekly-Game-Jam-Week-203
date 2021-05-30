@@ -16,7 +16,7 @@ public class Dash : Ability
     private float _minDistanceFromWall;
 
     [SerializeField, Tooltip("This is only for debugging")]
-    private Vector2 _dashDestination;
+    private Vector3 _dashDestination;
     public override void ActivateAbility()
     {
         base.ActivateAbility();
@@ -37,48 +37,57 @@ public class Dash : Ability
 
         PlayerTracker.PlayerMovementController.EnableMovement(true);
     }
-    private Vector2 GetDestination()
+    private Vector3 GetDestination()
     {
-        Vector2 mousePosition = GetMousePosition();
-
-        Vector2 direction = (mousePosition - new Vector2(gameObject.transform.position.x, gameObject.transform.position.y)).normalized;
+        Vector3 mousePosition = GetMousePosition();
+        mousePosition.y = 0;
+        Vector3 direction = (mousePosition - gameObject.transform.position).normalized;
 
         int layerMask = LayerMask.GetMask("Walls");
-        RaycastHit2D hit = Physics2D.Raycast(gameObject.transform.position, direction, _maxDashDistance, layerMask);
-
-        if (hit)
+        Ray ray = new Ray(gameObject.transform.position, direction);
+        RaycastHit hit;
+        Vector3 destination = Vector3.zero;
+        if(Physics.Raycast(ray, out hit, _maxDashDistance, layerMask))
         {
-            return hit.point + ((Vector2)gameObject.transform.position - hit.point).normalized * _minDistanceFromWall;
+            destination = hit.point + (gameObject.transform.position - hit.point).normalized * _minDistanceFromWall;
+            destination.y = 0;
+            return destination;
         }
 
-        return new Vector2(gameObject.transform.position.x, gameObject.transform.position.y) + direction * _maxDashDistance;
+        destination = gameObject.transform.position + direction * _maxDashDistance;
+        destination.y = 0;
+        return destination;
     }
     private IEnumerator DashToPoint()
     {
         WaitForFixedUpdate waitForEndOfFrame = new WaitForFixedUpdate();
+        //Vector3 destination = GetDestination();
         _dashDestination = GetDestination();
 
-        Vector2 startPosition = gameObject.transform.position;
-        float currentDistance = Vector2.Distance(startPosition, _dashDestination);
+        Vector3 startPosition = gameObject.transform.position;
+        float currentDistance = Vector3.Distance(startPosition, _dashDestination);
 
         while(currentDistance > 0.1f)
         {
-            gameObject.transform.position = Vector2.MoveTowards(gameObject.transform.position, _dashDestination, _dashSpeed * Time.fixedDeltaTime);
-            currentDistance = Vector2.Distance(gameObject.transform.position, _dashDestination);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, _dashDestination, _dashSpeed * Time.fixedDeltaTime);
+            currentDistance = Vector3.Distance(gameObject.transform.position, _dashDestination);
             yield return waitForEndOfFrame;
         }
 
         PostPerform();
     }
-    private Vector2 GetMousePosition() => Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+    private Vector3 GetMousePosition() => Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter(Collision collision)
     {
         if (_abilityData.IsAbilityActivated)
         {
+            Debug.LogError("Enemy Detected");
+
             Health otherHealth = collision.gameObject.GetComponent<Health>();
             if (otherHealth)
             {
+                Debug.LogError("Enemy Found");
                 otherHealth.ModifyHealth(-_damage);
             }
         }
@@ -90,6 +99,10 @@ public class Dash : Ability
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawLine(gameObject.transform.position, _dashDestination);
+            
         }
+        Gizmos.color = Color.red;
+        //_dashDestination = GetDestination();
+        //Gizmos.DrawCube(GetDestination(), Vector3.one * 2);
     }
 }
