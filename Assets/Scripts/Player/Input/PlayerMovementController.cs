@@ -19,7 +19,7 @@ public class PlayerMovementController : MonoBehaviour
     private float _minDistanceFromWall;
 
     [SerializeField]
-    private Rigidbody2D _rigidbody2D;
+    private Rigidbody _rBody;
 
     private Vector2 _movement;
 
@@ -28,10 +28,10 @@ public class PlayerMovementController : MonoBehaviour
 
     private void Awake()
     {
-        if(!(_rigidbody2D = gameObject.GetComponent<Rigidbody2D>()))
-            _rigidbody2D = gameObject.AddComponent<Rigidbody2D>();
+        if(!(_rBody = gameObject.GetComponent<Rigidbody>()))
+            _rBody = gameObject.AddComponent<Rigidbody>();
 
-        _rigidbody2D.isKinematic = true;
+        _rBody.isKinematic = true;
     }
     private void Start()
     {
@@ -55,7 +55,7 @@ public class PlayerMovementController : MonoBehaviour
 
             if (isHit)
                 return;
-            gameObject.transform.position += new Vector3(movement.x, movement.y,0);
+            gameObject.transform.position += new Vector3(movement.x, 0,movement.y);
         }
     }
     private void FaceMouse()
@@ -63,10 +63,12 @@ public class PlayerMovementController : MonoBehaviour
         if (_isAbleToMove)
         {
 
-            Vector2 direction = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - gameObject.transform.position;
+            Vector3 direction = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - gameObject.transform.position;
             direction = direction.normalized;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-            gameObject.transform.rotation = Quaternion.Euler(0,0,angle + _offset);
+            //Debug.LogError(direction);
+            float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+            gameObject.transform.rotation = Quaternion.Euler(-90, -angle + _offset,0);
+            //gameObject.transform.LookAt(direction);
         }     
     }
 
