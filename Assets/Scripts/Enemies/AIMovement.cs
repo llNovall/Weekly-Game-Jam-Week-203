@@ -12,9 +12,6 @@ public abstract class AIMovement : MonoBehaviour
     protected EnemyAgentMovementData _data;
 
     [SerializeField]
-    protected AIPassiveState _state;
-
-    [SerializeField]
     protected PlayerDetector _playerDetector;
 
     private void Start()
@@ -33,14 +30,46 @@ public abstract class AIMovement : MonoBehaviour
         _agent.acceleration = _data.Acceleration;
     }
 
-    public abstract void ChangeState(AIPassiveState state);
+    public void EnableAgent(bool isEnabled) => _agent.enabled = isEnabled;
 
-    private void PlayerDetector_OnPlayerDetected(bool isPlayerDetected)
+    protected void MoveToRandomLocation()
     {
-        if (isPlayerDetected)
-            ChangeState(AIPassiveState.Flee);
-        else
-            ChangeState(AIPassiveState.Idle);
+        if (_agent.hasPath)
+            return;
+
+        _agent.speed = _data.Speed;
+
+        Vector3 destination = GetARandomPositionOnNavMesh(_data.WanderRadius);
+
+        if (destination != Vector3.one * -1)
+        {
+            NavMeshPath path = new NavMeshPath();
+
+            NavMesh.CalculatePath(gameObject.transform.position, destination, NavMesh.AllAreas, path);
+            if (path.status == NavMeshPathStatus.PathComplete)
+            {
+                if (_agent.SetPath(path))
+                {
+                    if (_agent.isStopped)
+                        _agent.isStopped = false;
+                }
+                else
+                    Debug.LogError($"{GetType().FullName} : Failed to set path.");
+            }
+        }
     }
+
+    private Vector3 GetARandomPositionOnNavMesh(float searchRadius)
+    {
+        Vector3 randomPoint = gameObject.transform.position + UnityEngine.Random.insideUnitSphere * searchRadius;
+
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(randomPoint, out hit, searchRadius, NavMesh.AllAreas))
+            return hit.position;
+        else
+            return Vector3.one * -1;
+    }
+    protected abstract void PlayerDetector_OnPlayerDetected(bool isPlayerDetected);
 
 }
