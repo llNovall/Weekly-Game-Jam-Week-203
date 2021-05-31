@@ -12,7 +12,7 @@ public class Health : MonoBehaviour
     private event UnityAction OnHealthDepleted;
     public void ModifyHealth(float health)
     {
-        _healthData.Health = Mathf.Max(_healthData.Health - health, 0);
+        _healthData.Health = Mathf.Max(_healthData.Health + health, 0);
         OnHealthUpdated?.Invoke(_healthData.Health);
 
         if (_healthData.Health == 0)
