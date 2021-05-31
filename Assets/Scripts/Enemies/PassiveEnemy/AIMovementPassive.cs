@@ -3,42 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIPassive : MonoBehaviour
+public class AIMovementPassive : AIMovement
 {
-    [SerializeField]
-    private NavMeshAgent _agent;
-
-    [SerializeField]
-    private EnemyAgentMovementData _data;
-
-    [SerializeField]
-    private AIPassiveState _state;
-
-    [SerializeField]
-    private PlayerDetector _playerDetector;
-
-    private void Awake()
-    {
-        if (!(_agent = gameObject.GetComponent<NavMeshAgent>()))
-            _agent = gameObject.AddComponent<NavMeshAgent>();
-
-        _agent.speed = _data.Speed;
-        _agent.angularSpeed = _data.AngularSpeed;
-        _agent.acceleration = _data.Acceleration;
-    }
-    private void Start()
-    {
-        _playerDetector.SubscribeToOnPlayerDetected(PlayerDetector_OnPlayerDetected);
-    }
-
-    private void PlayerDetector_OnPlayerDetected(bool isPlayerDetected)
-    {
-        if (isPlayerDetected)
-            ChangeState(AIPassiveState.Flee);
-        else
-            ChangeState(AIPassiveState.Idle);
-    }
-
     private void Update()
     {
         switch (_state)
@@ -51,10 +17,6 @@ public class AIPassive : MonoBehaviour
                 break;
             default:
                 break;
-        }
-        if(_agent.remainingDistance < 1)
-        {
-            _agent.SetDestination(GetARandomPositionOnNavMesh(200));
         }
     }
 
@@ -97,9 +59,9 @@ public class AIPassive : MonoBehaviour
             return Vector3.one * -1;
     }
 
-    public void ChangeState(AIPassiveState state)
+    public override void ChangeState(AIPassiveState state)
     {
-        if(_state != state)
+        if (_state != state)
         {
             _state = state;
 
@@ -121,7 +83,8 @@ public class AIPassive : MonoBehaviour
     {
         Vector3 playerPosition = PlayerTracker.Current.gameObject.transform.position;
 
-        Vector3 destination = gameObject.transform.position + ((gameObject.transform.position - playerPosition).normalized * _data.FleeRadius);
+        Vector3 destination = gameObject.transform.position + ((gameObject.transform.position - playerPosition).normalized * _data.FleeRadius) + Random.insideUnitSphere * _data.FleeRadius;
+        destination.y = 0;
         _agent.speed = _data.FleeSpeed;
 
         NavMeshPath path = new NavMeshPath();
