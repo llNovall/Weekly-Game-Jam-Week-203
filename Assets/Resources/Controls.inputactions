@@ -52,11 +52,33 @@
                 },
                 {
                     "name": "",
+                    "id": "3b42c828-061e-4ee9-9932-87ac49131369",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "Keyboard & Mouse",
+                    "action": "Ability1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "96816ba1-4777-4d49-a535-b262ec42c622",
                     "path": "<Keyboard>/2",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Keyboard & Mouse",
+                    "action": "Ability2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6bbb3be9-7db6-406f-be75-7e468f920237",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
                     "action": "Ability2",
                     "isComposite": false,
                     "isPartOfComposite": false
