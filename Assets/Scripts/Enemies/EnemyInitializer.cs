@@ -14,8 +14,10 @@ public class EnemyInitializer : MonoBehaviour
     public EnemyHealth EnemyHealth;
 
     [SerializeField]
-    private EnemySound _enemySound;
+    private PlayerDetector _playerDetector;
 
+    [SerializeField]
+    private EnemySound _enemySound;
     public virtual void Initialize(EnemyStartData enemyStartData)
     {
         gameObject.transform.position = enemyStartData.Position;
@@ -44,6 +46,16 @@ public class EnemyInitializer : MonoBehaviour
             _enemySound.Initialize();
         else
             Debug.LogError($"{GetType().FullName} : Failed to find {typeof(EnemySound).FullName}.");
+
+        if (!_playerDetector)
+            gameObject.GetComponentInChildren<PlayerDetector>();
+
+        if (_playerDetector)
+        {
+            _playerDetector.Initialize(_enemyData.PlayerDetectorData);
+        }
+        else
+            Debug.LogError($"{GetType().FullName} : Failed to find {typeof(PlayerDetector).FullName}.");
 
     }
 }
