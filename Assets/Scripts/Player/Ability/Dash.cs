@@ -78,18 +78,22 @@ public class Dash : Ability
     }
     private Vector3 GetMousePosition() => Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
+        //Debug.LogError(other.gameObject.name);
+
         if (_abilityData.IsAbilityActivated)
         {
             Debug.LogError("Enemy Detected");
 
-            Health otherHealth = collision.gameObject.GetComponent<Health>();
-            if (otherHealth)
+            EnemyHealth health = other.GetComponent<EnemyHealth>();
+            if (health)
             {
                 Debug.LogError("Enemy Found");
-                otherHealth.ModifyHealth(-_damage);
+                health.ReduceHealth(_damage);
             }
+            else
+                Debug.LogError($"{GetType().FullName} : Failed to find Health in {other.name}");
         }
     }
 
