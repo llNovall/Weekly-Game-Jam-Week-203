@@ -8,4 +8,5 @@ public struct EnemyData
 {
     public EnemyHealthData HealthData;
     public EnemyAgentMovementData MovementData;
+    public EnemyPlayerDetectorData PlayerDetectorData;
 }
