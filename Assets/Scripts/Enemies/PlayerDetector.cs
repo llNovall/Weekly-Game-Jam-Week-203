@@ -13,10 +13,7 @@ public class PlayerDetector : MonoBehaviour
 
     private UnityAction<bool> OnPlayerDetected;
 
-    private void Start()
-    {
-        _detectionCollider.radius = _detectionRadius;
-    }
+    public void Initialize(EnemyPlayerDetectorData data) => _detectionCollider.radius = data.DetectionRadius;
 
     private void OnTriggerEnter(Collider other)
     {
