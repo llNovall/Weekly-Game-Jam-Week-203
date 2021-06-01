@@ -67,7 +67,7 @@ public class PlayerMovementController : MonoBehaviour
             direction = direction.normalized;
             //Debug.LogError(direction);
             float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-            gameObject.transform.rotation = Quaternion.Euler(-90, -angle + _offset,0);
+            gameObject.transform.rotation = Quaternion.Euler(0, -angle + _offset,0);
             //gameObject.transform.LookAt(direction);
         }     
     }
