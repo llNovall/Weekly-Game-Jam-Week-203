@@ -18,11 +18,8 @@ public class EnemyInitializer : MonoBehaviour
 
     [SerializeField]
     private EnemySound _enemySound;
-    public virtual void Initialize(EnemyStartData enemyStartData)
+    public virtual void Initialize()
     {
-        gameObject.transform.position = enemyStartData.Position;
-        //gameObject.transform.rotation = enemyStartData.Rotation;
-
         if (!_enemyMovementAI)
             _enemyMovementAI = gameObject.GetComponent<AIMovement>();
 
