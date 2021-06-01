@@ -33,7 +33,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField]
     private float _maxEnemySpawn, _currentEnemySpawn;
 
-
+    private List<Vector3> _spawnLocations = new List<Vector3>();
     private void Awake()
     {
         Current = this;
@@ -122,12 +122,12 @@ public class EnemySpawner : MonoBehaviour
             {
                 _currentEnemySpawn++;
                 GameObject objEnemyFromObjectPool = _objectPool.Dequeue();
-                EnemyStartData EnemyStartData = new EnemyStartData(spawnPosition);
+                //EnemyStartData EnemyStartData = new EnemyStartData(spawnPosition);
                 objEnemyFromObjectPool.SetActive(true);
 
                 EnemyInitializer EnemyInitializer = objEnemyFromObjectPool.GetComponent<EnemyInitializer>();
                 if (EnemyInitializer)
-                    EnemyInitializer.Initialize(EnemyStartData);
+                    EnemyInitializer.Initialize();
                 else
                     Debug.LogError($"{GetType().FullName} : Failed to find EnemyInitializer on EnemyObject.");
             }
@@ -136,12 +136,17 @@ public class EnemySpawner : MonoBehaviour
 
     private Vector3 GenerateStartPosition()
     {
-        Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * _spawnRadius;
+        Vector3 center = new Vector3(Random.Range(-10, 390), 0, Random.Range(10, -10));
+        Vector3 randomPoint = UnityEngine.Random.insideUnitSphere * _spawnRadius + center;
 
         NavMeshHit hit;
 
-        if (NavMesh.SamplePosition(randomPoint, out hit, 20, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(randomPoint, out hit, 20, 3))
+        {
+            _spawnLocations.Add(hit.position);
             return hit.position;
+        }
+            
         else
             return Vector3.one * -1;
     }
@@ -157,14 +162,14 @@ public class EnemySpawner : MonoBehaviour
             if(spawnPosition != Vector3.one * -1)
             {
                 _currentEnemySpawn++;
-                EnemyStartData EnemyStartData = new EnemyStartData(spawnPosition);
+                //EnemyStartData EnemyStartData = new EnemyStartData(spawnPosition);
 
-                GameObject objEnemy = Instantiate(_prefabEnemy);
+                GameObject objEnemy = Instantiate(_prefabEnemy, spawnPosition, Quaternion.identity);
 
                 EnemyInitializer EnemyInitializer = objEnemy.GetComponent<EnemyInitializer>();
                 if (EnemyInitializer)
                 {
-                    EnemyInitializer.Initialize(EnemyStartData);
+                    EnemyInitializer.Initialize();
                     EnemySpawnerInfo EnemySpawnerInfo = objEnemy.GetComponent<EnemySpawnerInfo>();
                     EnemySpawnerInfo.Initialize(this);
                 }
@@ -177,4 +182,14 @@ public class EnemySpawner : MonoBehaviour
     }
 
     #endregion
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+
+        for (int i = 0; i < _spawnLocations.Count; i++)
+        {
+            Gizmos.DrawCube(_spawnLocations[i], Vector3.one);
+        }
+    }
 }
