@@ -91,7 +91,7 @@ Transform:
   m_GameObject: {fileID: 107007921731423090}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 1, z: 3}
+  m_LocalScale: {x: 2.5, y: 1, z: 2.5}
   m_Children:
   - {fileID: 107007922217097426}
   - {fileID: 107007922245217927}
@@ -136,7 +136,7 @@ MonoBehaviour:
       ChaseRadius: 20
       WanderRadius: 50
     PlayerDetectorData:
-      DetectionRadius: 10
+      DetectionRadius: 3
   _enemyMovementAI: {fileID: 107007921731423053}
   EnemyHealth: {fileID: 107007921388386781}
   _playerDetector: {fileID: 107007922245217930}
@@ -205,14 +205,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _agent: {fileID: 107007921731423045}
   _data:
-    Speed: 0
-    AngularSpeed: 0
+    Speed: 5
+    AngularSpeed: 300
     FleeSpeed: 0
-    ChaseSpeed: 0
-    Acceleration: 0
+    ChaseSpeed: 10
+    Acceleration: 300
     FleeRadius: 0
-    ChaseRadius: 0
-    WanderRadius: 0
+    ChaseRadius: 3
+    WanderRadius: 10
   _playerDetector: {fileID: 107007922245217930}
   _player: {fileID: 0}
 --- !u!114 &107007921731423055
@@ -249,6 +249,7 @@ GameObject:
   m_Component:
   - component: {fileID: 107007922217097426}
   - component: {fileID: 107007922217097389}
+  - component: {fileID: 1087069935}
   m_Layer: 0
   m_Name: Square
   m_TagString: Untagged
@@ -263,13 +264,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107007922217097427}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.28, y: 0.28, z: 1}
   m_Children: []
   m_Father: {fileID: 107007921731423052}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 90, z: 0}
 --- !u!212 &107007922217097389
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -321,6 +322,21 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1087069935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107007922217097427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f5300fb5e7c89a41b8de1f30ed99b3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _spriteRenderer: {fileID: 107007922217097389}
+  _minY: 100
+  _maxY: 260
 --- !u!1 &107007922245217931
 GameObject:
   m_ObjectHideFlags: 0
