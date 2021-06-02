@@ -46,7 +46,7 @@ public class PlayerInputController : MonoBehaviour
 
     private void Ability1_performed(InputAction.CallbackContext obj)
     {
-        Debug.LogError($"{GetType().FullName} : Ability1 Activated");
+        //Debug.LogError($"{GetType().FullName} : Ability1 Activated");
         OnAbility1?.Invoke();
     }
 

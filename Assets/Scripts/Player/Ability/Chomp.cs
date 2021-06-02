@@ -84,6 +84,6 @@ public class Chomp : Ability
         Vector3 mousePosition = GetMousePosition();
         mousePosition.y = 0;
         Vector3 direction = (mousePosition - gameObject.transform.position).normalized;
-        Gizmos.DrawRay(gameObject.transform.position, direction);
+        Gizmos.DrawLine(gameObject.transform.position, gameObject.transform.position + direction * _biteRange);
     }
 }

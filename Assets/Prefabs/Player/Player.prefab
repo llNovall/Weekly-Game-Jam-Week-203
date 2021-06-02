@@ -165,7 +165,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerInputController: {fileID: 0}
   _isAbleToMove: 1
-  _movementSpeed: 7
+  _movementSpeed: 20
   _minDistanceFromWall: 2
   _rBody: {fileID: 0}
   _offset: -90
@@ -182,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthData:
-    Health: 170
+    Health: 200
     MaxHealth: 200
 --- !u!114 &5420853887379717731
 MonoBehaviour:
@@ -217,8 +217,8 @@ MonoBehaviour:
     Cooldown: 0
     ActivationKey: 2
   _damage: 4
-  _maxDashDistance: 15
-  _dashSpeed: 30
+  _maxDashDistance: 30
+  _dashSpeed: 50
   _minDistanceFromWall: 1
   _dashDestination: {x: 2.9020143, y: 0, z: 15.403143}
 --- !u!114 &5420853887379717729
@@ -276,10 +276,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _abilityData:
     IsAbilityActivated: 0
-    CooldownRequired: 3
+    CooldownRequired: 0.2
     Cooldown: 0
     ActivationKey: 1
-  _biteRange: 2
-  _attackDuration: 0.2
-  _currentDuration: 0
-  _attackDamage: 10
+  _biteRange: 3
+  _attackDuration: 0.1
+  _currentDuration: 0.1
+  _attackDamage: 2

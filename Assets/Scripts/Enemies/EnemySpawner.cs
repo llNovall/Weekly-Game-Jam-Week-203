@@ -44,7 +44,8 @@ public class EnemySpawner : MonoBehaviour
 
         for (int i = 0; i < _maxEnemySpawn; i++)
         {
-            CreateObjectFromPrefab();
+            if (!CreateObjectFromPrefab())
+                i--;
         }
     }
 
@@ -153,7 +154,7 @@ public class EnemySpawner : MonoBehaviour
     /// <summary>
     /// This method creates an object using the prefab at a location and initializes it.
     /// </summary>
-    private void CreateObjectFromPrefab()
+    private bool CreateObjectFromPrefab()
     {
         if (_prefabEnemy && _currentEnemySpawn < _maxEnemySpawn)
         {
@@ -172,6 +173,8 @@ public class EnemySpawner : MonoBehaviour
                     EnemyInitializer.Initialize();
                     EnemySpawnerInfo EnemySpawnerInfo = objEnemy.GetComponent<EnemySpawnerInfo>();
                     EnemySpawnerInfo.Initialize(this);
+
+                    return true;
                 }
                 else
                     Debug.LogError($"{GetType().FullName} : Failed to find EnemyInitializer on EnemyObject.");
@@ -179,6 +182,8 @@ public class EnemySpawner : MonoBehaviour
         }
         else
             Debug.LogError($"{GetType().FullName} : Failed to find Prefab to create Game Object.");
+
+        return false;
     }
 
     #endregion

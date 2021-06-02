@@ -89,10 +89,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyData:
     HealthData:
-      MaxHealth: 1
+      MaxHealth: 2
     MovementData:
       Speed: 5
-      AngularSpeed: 300
+      AngularSpeed: 1000
       FleeSpeed: 10
       ChaseSpeed: 0
       Acceleration: 300
