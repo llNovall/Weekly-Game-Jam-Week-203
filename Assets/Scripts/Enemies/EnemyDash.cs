@@ -7,6 +7,12 @@ using UnityEngine.Events;
 public class EnemyDash : MonoBehaviour
 {
     [SerializeField]
+    private EnemySound _enemySound;
+
+    [SerializeField]
+    private PlayerSound _playerSound;
+
+    [SerializeField]
     private bool _isAbilityActivated;
 
     [SerializeField]
@@ -46,6 +52,7 @@ public class EnemyDash : MonoBehaviour
     {
         _playerDetector.SubscribeToOnPlayerDetected(PlayerDetector_OnPlayerDetected);
         _player = PlayerTracker.Current.transform;
+        _playerSound = PlayerTracker.PlayerSound;
     }
 
     private void Update()
@@ -140,7 +147,7 @@ public class EnemyDash : MonoBehaviour
         float currentDistance = Vector3.Distance(startPosition, _dashDestination);
 
         Health playerHealth = _player.GetComponent<Health>();
-
+        _enemySound.PlayDashSound();
         while (currentDistance > 0.1f)
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, _dashDestination, _dashSpeed * Time.fixedDeltaTime);
@@ -152,6 +159,7 @@ public class EnemyDash : MonoBehaviour
                 {
                     Debug.LogError($"{GetType().FullName} : Player Found");
                     playerHealth.ModifyHealth(-_damage);
+                    _playerSound.PlayTakeHitSound();
                 }
                 else
                     Debug.LogError($"{GetType().FullName} : Failed to find Player Health.");
@@ -168,6 +176,11 @@ public class EnemyDash : MonoBehaviour
         }
 
         PostPerform();
+    }
+
+    private void OnDisable()
+    {
+        _isAbilityActivated = false;
     }
 
     private void OnDrawGizmos()

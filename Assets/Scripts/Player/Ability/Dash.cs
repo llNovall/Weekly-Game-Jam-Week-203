@@ -63,10 +63,10 @@ public class Dash : Ability
         WaitForFixedUpdate waitForEndOfFrame = new WaitForFixedUpdate();
         //Vector3 destination = GetDestination();
         _dashDestination = GetDestination();
-
+        PlayerTracker.PlayerSound.PlayDashSound();
         Vector3 startPosition = gameObject.transform.position;
         float currentDistance = Vector3.Distance(startPosition, _dashDestination);
-
+        
         while(currentDistance > 0.1f)
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, _dashDestination, _dashSpeed * Time.fixedDeltaTime);
@@ -84,11 +84,14 @@ public class Dash : Ability
 
         if (_abilityData.IsAbilityActivated)
         {
+            
             Debug.LogError("Enemy Detected");
 
             EnemyHealth health = other.GetComponent<EnemyHealth>();
             if (health)
             {
+                EnemySound enemySound = other.GetComponentInParent<EnemySound>();
+                enemySound.PlayTakeDamageSound();
                 Debug.LogError("Enemy Found");
                 health.ReduceHealth(_damage);
             }

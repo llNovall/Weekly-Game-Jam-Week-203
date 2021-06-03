@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8841375326412097988}
   - component: {fileID: 8841375326412097989}
-  - component: {fileID: 8841375326412097987}
   - component: {fileID: 8841375326412097984}
   - component: {fileID: 8841375326412097997}
   - component: {fileID: 2381750897559263970}
   - component: {fileID: 1719051274201258474}
+  - component: {fileID: 1565157689369626146}
   m_Layer: 0
   m_Name: EnemyPassive
   m_TagString: Untagged
@@ -63,18 +63,6 @@ MonoBehaviour:
     WanderRadius: 50
   _playerDetector: {fileID: 8841375327001390082}
   _state: 0
---- !u!114 &8841375326412097987
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8841375326412098042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbf5fcb76c811ad499f77342bee17a0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8841375326412097984
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,7 +92,7 @@ MonoBehaviour:
   _enemyMovementAI: {fileID: 8841375326412097989}
   EnemyHealth: {fileID: 8841375328225459029}
   _playerDetector: {fileID: 8841375327001390082}
-  _enemySound: {fileID: 8841375326412097987}
+  _enemySound: {fileID: 1565157689369626146}
 --- !u!195 &8841375326412097997
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -155,6 +143,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyHealth: {fileID: 8841375328225459029}
   _rewardAmount: 1
+--- !u!114 &1565157689369626146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8841375326412098042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf5fcb76c811ad499f77342bee17a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _volume: 0
+  _eventTakeDamage: event:/Enemy/HitEnemy
+  _eventDash: event:/Dash
 --- !u!1 &8841375326897511003
 GameObject:
   m_ObjectHideFlags: 0

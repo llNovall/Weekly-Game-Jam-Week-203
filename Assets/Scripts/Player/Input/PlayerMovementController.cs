@@ -62,14 +62,16 @@ public class PlayerMovementController : MonoBehaviour
     {
         if (_isAbleToMove)
         {
-
-            Vector3 direction = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - gameObject.transform.position;
-            direction = direction.normalized;
-            //Debug.LogError(direction);
-            float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
-            gameObject.transform.rotation = Quaternion.Euler(0, -angle + _offset,0);
-            //gameObject.transform.LookAt(direction);
-        }     
+            if(Time.timeScale > 0)
+            {
+                Vector3 direction = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()) - gameObject.transform.position;
+                direction = direction.normalized;
+                //Debug.LogError(direction);
+                float angle = Mathf.Atan2(direction.z, direction.x) * Mathf.Rad2Deg;
+                gameObject.transform.rotation = Quaternion.Euler(0, -angle + _offset, 0);
+                //gameObject.transform.LookAt(direction);
+            }
+        }
     }
 
     public void EnableMovement(bool isEnabled) => _isAbleToMove = isEnabled;

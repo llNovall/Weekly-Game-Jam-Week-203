@@ -68,13 +68,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 107007921731423052}
-  - component: {fileID: 107007921731423051}
   - component: {fileID: 107007921731423048}
   - component: {fileID: 107007921731423045}
   - component: {fileID: 6540184289583749226}
   - component: {fileID: 7788279710289812322}
   - component: {fileID: 107007921731423053}
   - component: {fileID: 107007921731423055}
+  - component: {fileID: 7374458469577744423}
   m_Layer: 0
   m_Name: EnemyAggressive
   m_TagString: Untagged
@@ -99,18 +99,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &107007921731423051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107007921731423090}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bbf5fcb76c811ad499f77342bee17a0d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &107007921731423048
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,7 +128,7 @@ MonoBehaviour:
   _enemyMovementAI: {fileID: 107007921731423053}
   EnemyHealth: {fileID: 107007921388386781}
   _playerDetector: {fileID: 107007922245217930}
-  _enemySound: {fileID: 107007921731423051}
+  _enemySound: {fileID: 7374458469577744423}
 --- !u!195 &107007921731423045
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -227,6 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f99d98f243ab3cf4491280edd826c176, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemySound: {fileID: 7374458469577744423}
+  _playerSound: {fileID: 0}
   _isAbilityActivated: 0
   _damage: 5
   _maxDashDistance: 10
@@ -239,6 +229,21 @@ MonoBehaviour:
   _player: {fileID: 0}
   _isPlayerDetected: 0
   _dashDestination: {x: 0, y: 0, z: 0}
+--- !u!114 &7374458469577744423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107007921731423090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf5fcb76c811ad499f77342bee17a0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _volume: 0
+  _eventTakeDamage: event:/Enemy/HitEnemy
+  _eventDash: event:/Dash
 --- !u!1 &107007922217097427
 GameObject:
   m_ObjectHideFlags: 0

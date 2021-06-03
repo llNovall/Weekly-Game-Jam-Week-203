@@ -9,6 +9,7 @@ public class PlayerTracker : MonoBehaviour
     public static PlayerMovementController PlayerMovementController;
     public static PlayerInputController PlayerInputController;
     public static PlayerAbilitiesController PlayerAbilitiesController;
+    public static PlayerSound PlayerSound;
     private void Awake()
     {
         Current = this;
@@ -16,5 +17,6 @@ public class PlayerTracker : MonoBehaviour
         PlayerMovementController = gameObject.GetComponent<PlayerMovementController>();
         PlayerInputController = gameObject.GetComponent<PlayerInputController>();
         PlayerAbilitiesController = gameObject.GetComponent<PlayerAbilitiesController>();
+        PlayerSound = gameObject.GetComponent<PlayerSound>();
     }
 }

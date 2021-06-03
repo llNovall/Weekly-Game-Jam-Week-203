@@ -156,28 +156,31 @@ public class EnemySpawner : MonoBehaviour
     /// </summary>
     private bool CreateObjectFromPrefab()
     {
-        if (_prefabEnemy && _currentEnemySpawn < _maxEnemySpawn)
+        if (_prefabEnemy)
         {
-            Vector3 spawnPosition = GenerateStartPosition();
-
-            if(spawnPosition != Vector3.one * -1)
+            if(_currentEnemySpawn < _maxEnemySpawn)
             {
-                _currentEnemySpawn++;
-                //EnemyStartData EnemyStartData = new EnemyStartData(spawnPosition);
+                Vector3 spawnPosition = GenerateStartPosition();
 
-                GameObject objEnemy = Instantiate(_prefabEnemy, spawnPosition, Quaternion.identity);
-
-                EnemyInitializer EnemyInitializer = objEnemy.GetComponent<EnemyInitializer>();
-                if (EnemyInitializer)
+                if (spawnPosition != Vector3.one * -1)
                 {
-                    EnemyInitializer.Initialize();
-                    EnemySpawnerInfo EnemySpawnerInfo = objEnemy.GetComponent<EnemySpawnerInfo>();
-                    EnemySpawnerInfo.Initialize(this);
+                    _currentEnemySpawn++;
+                    //EnemyStartData EnemyStartData = new EnemyStartData(spawnPosition);
 
-                    return true;
+                    GameObject objEnemy = Instantiate(_prefabEnemy, spawnPosition, Quaternion.identity);
+
+                    EnemyInitializer EnemyInitializer = objEnemy.GetComponent<EnemyInitializer>();
+                    if (EnemyInitializer)
+                    {
+                        EnemyInitializer.Initialize();
+                        EnemySpawnerInfo EnemySpawnerInfo = objEnemy.GetComponent<EnemySpawnerInfo>();
+                        EnemySpawnerInfo.Initialize(this);
+
+                        return true;
+                    }
+                    else
+                        Debug.LogError($"{GetType().FullName} : Failed to find EnemyInitializer on EnemyObject.");
                 }
-                else
-                    Debug.LogError($"{GetType().FullName} : Failed to find EnemyInitializer on EnemyObject.");
             }
         }
         else

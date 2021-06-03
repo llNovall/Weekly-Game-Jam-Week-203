@@ -25,6 +25,7 @@ public abstract class AIMovement : MonoBehaviour
         if (!(_agent = gameObject.GetComponent<NavMeshAgent>()))
             _agent = gameObject.AddComponent<NavMeshAgent>();
 
+        _agent.enabled = true;
         _agent.speed = _data.Speed;
         _agent.angularSpeed = _data.AngularSpeed;
         _agent.acceleration = _data.Acceleration;

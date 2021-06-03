@@ -49,6 +49,7 @@ public class Chomp : Ability
 
         if (enemyHealth)
         {
+            PlayerTracker.PlayerSound.PlayChompSound();
             enemyHealth.ReduceHealth(_attackDamage);
         }
 
