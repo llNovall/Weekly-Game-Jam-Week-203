@@ -21,6 +21,7 @@ public class GameStateManager : MonoBehaviour
         }
     }
 
+    public GameState GetGameState() => _currentState;
     public void ChangeGameState(GameState gameState)
     {
         if (_currentState != gameState)

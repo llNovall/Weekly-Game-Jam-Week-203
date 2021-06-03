@@ -11,7 +11,7 @@ public class UIAbility : MonoBehaviour
     private TextMeshProUGUI _txtCooldown, _txtKey;
 
     [SerializeField]
-    private Image _imgCooldown;
+    private Image _imgCooldown, _imgAbility;
 
     [SerializeField]
     private Ability _ability;
@@ -26,6 +26,8 @@ public class UIAbility : MonoBehaviour
         ability.SubscribeToOnCooldownUpdated(Ability_OnCooldownUpdated);
 
         _txtKey.text = abilityData.ActivationKey;
+
+        _imgAbility.sprite = Resources.Load<Sprite>(abilityData.SpriteLocation);
     }
 
     private void Ability_OnCooldownUpdated(float cooldown)

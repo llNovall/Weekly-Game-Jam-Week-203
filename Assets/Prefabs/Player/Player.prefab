@@ -116,6 +116,7 @@ GameObject:
   - component: {fileID: 5420853887379717757}
   - component: {fileID: 5420853887379717734}
   - component: {fileID: 5420853887379717756}
+  - component: {fileID: 5420853888178561935}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -216,6 +217,7 @@ MonoBehaviour:
     CooldownRequired: 3
     Cooldown: 0
     ActivationKey: 2
+    SpriteLocation: Sprites/dash
   _damage: 4
   _maxDashDistance: 30
   _dashSpeed: 50
@@ -279,7 +281,24 @@ MonoBehaviour:
     CooldownRequired: 0.2
     Cooldown: 0
     ActivationKey: 1
+    SpriteLocation: Sprites/chomp
   _biteRange: 3
   _attackDuration: 0.1
   _currentDuration: 0.1
   _attackDamage: 2
+--- !u!114 &5420853888178561935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5420853887379717739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d233f39ab6d04904a9dafbeec0615902, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _volume: 0
+  _evtDash: event:/Dash
+  _evtTakeHit: event:/Player/HitPlayer
+  _evtChomp: event:/Player/Eat

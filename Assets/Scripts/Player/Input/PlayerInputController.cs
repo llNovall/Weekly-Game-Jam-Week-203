@@ -61,4 +61,13 @@ public class PlayerInputController : MonoBehaviour
     public void UnsubscribeFromOnAbility2(UnityAction callback) => HelperUtility.UnsubscribeFrom(ref OnAbility2, ref callback);
 
     #endregion
+
+    private void OnDestroy()
+    {
+        InputAction ability1 = _playerInput.actions["Ability1"];
+        ability1.performed -= Ability1_performed;
+
+        InputAction ability2 = _playerInput.actions["Ability2"];
+        ability2.performed -= Ability2_performed;
+    }
 }

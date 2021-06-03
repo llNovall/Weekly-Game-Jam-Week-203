@@ -12,11 +12,14 @@ public struct AbilityData
 
     public string ActivationKey;
 
-    public AbilityData(bool isAbilityActivated, float cooldownRequired, float cooldown, string activationKey)
+    public string SpriteLocation;
+
+    public AbilityData(bool isAbilityActivated, float cooldownRequired, float cooldown, string activationKey, string spriteLocation)
     {
         IsAbilityActivated = isAbilityActivated;
         CooldownRequired = cooldownRequired;
         Cooldown = cooldown;
         ActivationKey = activationKey;
+        SpriteLocation = spriteLocation;
     }
 }

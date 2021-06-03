@@ -3550,11 +3550,11 @@ MonoBehaviour:
   _minSpawnerFrequency: 4
   _maxSpawnerFrequency: 7
   _spawnerFrequency: 0
-  _spawnRadius: 50
+  _spawnRadius: 10
   _timePassedSinceLastSpawn: 0
   _prefabEnemy: {fileID: 107007921731423090, guid: d58e56d0a696d7b40984a449824eb1f6, type: 3}
   _isSpawningEnabled: 1
-  _maxEnemySpawn: 10
+  _maxEnemySpawn: 15
   _currentEnemySpawn: 0
 --- !u!4 &697179441
 Transform:
@@ -3895,6 +3895,7 @@ MonoBehaviour:
   _txtCooldown: {fileID: 1993862441}
   _txtKey: {fileID: 2026466963}
   _imgCooldown: {fileID: 1290881238}
+  _imgAbility: {fileID: 443170290}
   _ability: {fileID: 0}
 --- !u!1 &744569458
 GameObject:
@@ -4125,14 +4126,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e842a3bc2223f714eab5565358ab0eaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _minSpawnerFrequency: 4
-  _maxSpawnerFrequency: 7
+  _minSpawnerFrequency: 2
+  _maxSpawnerFrequency: 3
   _spawnerFrequency: 0
-  _spawnRadius: 40
+  _spawnRadius: 10
   _timePassedSinceLastSpawn: 0
   _prefabEnemy: {fileID: 8841375326412098042, guid: 1737dadb39030fc4e930596d3ac35c2a, type: 3}
   _isSpawningEnabled: 1
-  _maxEnemySpawn: 20
+  _maxEnemySpawn: 30
   _currentEnemySpawn: 0
 --- !u!4 &770529692
 Transform:
@@ -5550,7 +5551,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 70, y: 70}
+  m_SizeDelta: {x: 65, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1290881238
 MonoBehaviour:
@@ -9649,27 +9650,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 430252a7f0d6b9944b5e75c613035368, type: 3}
---- !u!1 &5420853888178561934 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5420853887379717739, guid: 430252a7f0d6b9944b5e75c613035368, type: 3}
-  m_PrefabInstance: {fileID: 5420853888178561933}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5420853888178561935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5420853888178561934}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d233f39ab6d04904a9dafbeec0615902, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _volume: 0
-  _evtDash: event:/Dash
-  _evtTakeHit: event:/Player/HitPlayer
-  _evtChomp: event:/Player/Eat
 --- !u!1001 &5454966019103283576
 PrefabInstance:
   m_ObjectHideFlags: 0

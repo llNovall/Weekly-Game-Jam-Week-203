@@ -25,7 +25,8 @@ public class GameMusicPlayer : MonoBehaviour
         if (!Current)
         {
             Current = this;
-            PlayMusic(_mainmenuMusicID);
+            //Invoke("PlayMenuMusic", 2);
+            //PlayMusic(_mainmenuMusicID);
             DontDestroyOnLoad(gameObject);
         }
     }
@@ -36,6 +37,8 @@ public class GameMusicPlayer : MonoBehaviour
         {
             _volume = VolumeManager.Current.Music;
             VolumeManager.Current.SubscribeToChangeMusic(VolumeManager_OnChangeMusicVolume);
+
+            //GameStateManager_OnGameStateChanged(GameStateManager.Current.GetGameState());
         }
         else
             Debug.LogError($"Failed to find VolumeManager");
@@ -43,6 +46,10 @@ public class GameMusicPlayer : MonoBehaviour
         GameStateManager.Current.SubscribeToOnGameStateChanged(GameStateManager_OnGameStateChanged);
     }
 
+    private void PlayMenuMusic()
+    {
+        GameStateManager_OnGameStateChanged(GameState.MainMenu);
+    }
     private void GameStateManager_OnGameStateChanged(GameState gameState)
     {
         if (gameState == GameState.MainMenu)

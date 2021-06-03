@@ -72,4 +72,9 @@ public class AIMovementPassive : AIMovement
                 Debug.LogError($"{GetType().FullName} : Failed to set path.");
         }
     }
+
+    private void OnDisable()
+    {
+        _state = AIPassiveState.Idle;
+    }
 }

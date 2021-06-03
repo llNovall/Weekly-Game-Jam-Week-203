@@ -19,7 +19,7 @@ public abstract class Ability : MonoBehaviour
 
     public virtual void ActivateAbility()
     {
-        if (_abilityData.Cooldown <= 0)
+        if (_abilityData.Cooldown <= 0 && !_abilityData.IsAbilityActivated)
         {
             PrePerform();
         }
@@ -29,6 +29,7 @@ public abstract class Ability : MonoBehaviour
     protected virtual void PrePerform()
     {
         _abilityData.Cooldown = _abilityData.CooldownRequired;
+        _abilityData.IsAbilityActivated = true;
         OnAbilityActivated_RaiseEvent(true);
     }
     protected virtual void PostPerform()

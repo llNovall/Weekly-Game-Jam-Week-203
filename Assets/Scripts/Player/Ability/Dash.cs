@@ -62,6 +62,7 @@ public class Dash : Ability
     {
         WaitForFixedUpdate waitForEndOfFrame = new WaitForFixedUpdate();
         //Vector3 destination = GetDestination();
+        Debug.LogError("DashToPoint");
         _dashDestination = GetDestination();
         PlayerTracker.PlayerSound.PlayDashSound();
         Vector3 startPosition = gameObject.transform.position;
